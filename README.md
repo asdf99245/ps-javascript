@@ -1,1 +1,1 @@
-Study Problem solving with Javascript
+자바스크립트로 알고리즘 연습
