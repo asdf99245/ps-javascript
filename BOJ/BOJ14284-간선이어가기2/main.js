@@ -1,5 +1,6 @@
 // 간선 이어가기 2
 // https://www.acmicpc.net/problem/14284
+// 수정
 
 const readline = require('readline');
 const rl = readline.createInterface({
