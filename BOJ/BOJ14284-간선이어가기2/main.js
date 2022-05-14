@@ -8,7 +8,58 @@ const rl = readline.createInterface({
 });
 
 const inputs = [];
-let n, m, graph, cost, s, t;
+let n, m, graph, s, t;
+
+class PriorityQueue {
+  constructor(greater) {
+    this.heap = [];
+    this.comp = greater
+      ? (a, b) => cost[a] < cost[b]
+      : (a, b) => cost[a] > cost[b];
+  }
+  size() {
+    return this.heap.length;
+  }
+  isEmpty() {
+    return this.size() === 0;
+  }
+  top() {
+    return this.heap[0];
+  }
+  enqueue(data) {
+    this.heap.push(data);
+    let currentIndex = this.size() - 1;
+    let parentIndex = Math.ceil(currentIndex / 2) - 1;
+    while (currentIndex != 0 && this.comp(data, this.heap[parentIndex])) {
+      this.heap[currentIndex] = this.heap[parentIndex];
+      this.heap[parentIndex] = data;
+      currentIndex = Math.ceil(currentIndex / 2) - 1;
+      parentIndex = Math.ceil(currentIndex / 2) - 1;
+    }
+  }
+  dequeue() {
+    const result = this.top();
+    const last = this.heap.pop();
+    if (this.isEmpty()) return last;
+    this.heap[0] = last;
+    let currentIndex = 0;
+    while (true) {
+      const leftIndex = currentIndex * 2 + 1;
+      const rightIndex = currentIndex * 2 + 2;
+      const left = this.heap[leftIndex];
+      const right = this.heap[rightIndex];
+      const compareIndex = this.comp(left, right) ? leftIndex : rightIndex;
+      const compare = this.heap[compareIndex];
+      if (this.comp(compare, this.heap[currentIndex])) {
+        this.heap[compareIndex] = this.heap(currentIndex);
+        this.queue[currentIndex] = compare;
+        currentIndex = compareIndex;
+      } else break;
+    }
+
+    return result;
+  }
+}
 
 class PriorityQueue {
   curr = 0;
